@@ -2,20 +2,6 @@ const User = require('../../models/User');
 const UserSession = require('../../models/UserSession');
 
 module.exports = (app) => {
-  // app.get('/api/counters', (req, res, next) => {
-  //   Counter.find()
-  //     .exec()
-  //     .then((counter) => res.json(counter))
-  //     .catch((err) => next(err));
-  // });
-
-  // app.post('/api/counters', function (req, res, next) {
-  //   const counter = new Counter();
-
-  //   counter.save()
-  //     .then(() => res.json(counter))
-  //     .catch((err) => next(err));
-  // });
 
   // Sign Up
   app.post('/api/account/signup', (req, res, next) => {
@@ -68,12 +54,12 @@ module.exports = (app) => {
       email: email,
     }, (err, previousUsers) => {
       if (err) {
-        res.end({
+        res.send({
           success: false,
           message: 'Error: Server error'
         });
       } else if (previousUsers.length > 0) {
-        res.end({
+        res.send({
           success: false,
           message: 'Error: Account already exists'
         });
@@ -88,12 +74,12 @@ module.exports = (app) => {
       newUser.password = newUser.generateHash(password);
       newUser.save((err, user) => {
         if (err) {
-          res.end({
+          res.send({
             success: false,
             message: 'Error: Server error'
           });
         }
-        res.end({
+        res.send({
           success: true,
           message: 'Signed up!'
         });
